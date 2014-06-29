@@ -2,6 +2,9 @@ package br.ic.ufal.gafanhotos.connection;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
+
+import br.ic.ufal.gafanhotos.Configuration;
 
 public class Server {
 
@@ -14,11 +17,16 @@ public class Server {
 	} // end of the constructor
 
 	public void start() throws IOException {
-		ServerSocket server = new ServerSocket( port );
+		ServerSocket   server = new ServerSocket( port );
+		Socket         socket = null;
 		
 		while( !stop ) {
+			socket = server.accept();
 			
-		}
+			
+		} // end of while
+		
+		server.close();
 	} // end of the method
 
 	public void stop() {

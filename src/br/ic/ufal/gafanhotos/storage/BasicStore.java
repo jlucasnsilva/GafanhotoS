@@ -9,14 +9,14 @@ import java.util.Set;
  * <i>façade</i> para {@link HashMap}.
  * @author João Lucas Nunes e Silva
  */
-class BasicStore implements IKVStorage {
+public class BasicStore implements IStorage {
 
 	private HashMap<String, String> map;
 
 	/**
 	 * Cria um novo {@code BasicStore} vazio.
 	 */
-	BasicStore() {
+	public BasicStore() {
 		map = new HashMap<>();
 	} // end of the constructor
 
@@ -24,7 +24,7 @@ class BasicStore implements IKVStorage {
 	 * Cria um novo {@code BasicStore} com todo o conteúdo de
 	 * {@code m}.
 	 */
-	BasicStore(Map<String, String> m) {
+	public BasicStore(Map<String, String> m) {
 		map = new HashMap<>( m );
 	} // end of the constructor
 
@@ -33,7 +33,7 @@ class BasicStore implements IKVStorage {
 	 * igual à {@code initialCapacity}
 	 * @param initialCapacity - a capacidade inicial do novo {@code BasicStore}.
 	 */
-	BasicStore(int initialCapacity) {
+	public BasicStore(int initialCapacity) {
 		map = new HashMap<>( initialCapacity );
 	} // end of the constructor
 
@@ -42,7 +42,7 @@ class BasicStore implements IKVStorage {
 	 * A ação de {@code update} caiu nesse método também.
 	 */
 	@Override
-	public void put(String key, String data) {
+	public void set(String key, String data) {
 		map.put(key, data);
 	} // end of the method
 	

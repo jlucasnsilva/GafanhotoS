@@ -2,13 +2,14 @@ package br.ic.ufal.gafanhotos.glovinha;
 
 public enum EMethod {
 
-	CREATE,
-	READ,
-	UPDATE,
-	DELETE,
-	INC,
-	ADD,
-	LENGTH,
-	CONCAT
+	SET,
+	GET,
+	DEL,
+	LEN,
+	CONCAT,
+	COPY,
+	PREPEND,
+	
+	QUIT
 
 } // end of the enumeration
