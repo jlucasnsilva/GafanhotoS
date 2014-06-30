@@ -2,7 +2,7 @@ package br.ic.ufal.gafanhotos.client;
 
 import java.io.IOException;
 
-public class Main {
+public class MainCli {
 
 	public static void main(String[] args) throws IOException {
 		Repl repl = new Repl();

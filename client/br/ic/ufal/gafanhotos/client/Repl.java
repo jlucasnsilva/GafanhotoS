@@ -34,10 +34,10 @@ public class Repl {
 			
 			if( input.equals("quit") ) {
 				quit = true;
-			} else {
-				out.println( input );
-				System.out.println("<< " + in.readLine());
 			}
+			
+			out.println( input );
+			System.out.println("<< " + in.readLine());
 		} // end of while
 		
 		in.close();

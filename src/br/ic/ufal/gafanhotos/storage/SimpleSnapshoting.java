@@ -1,9 +1,9 @@
 package br.ic.ufal.gafanhotos.storage;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.Date;
 
 /**
@@ -14,6 +14,8 @@ public class SimpleSnapshoting implements Runnable {
 
 	private final int MINUTE_TO_MILLI = 60000;
 
+	private boolean stop = false;
+	
 	/**
 	 * Tempo entre cada <i>snapshot</i> em minutos;
 	 */
@@ -25,7 +27,7 @@ public class SimpleSnapshoting implements Runnable {
 	/**
 	 * Stream para escrita do banco de dados.
 	 */
-	private Writer out;
+	private String file;
 
 	/**
 	 * Cria um novo {@code SimpleSnapshoting} que salva {@code store}
@@ -35,47 +37,36 @@ public class SimpleSnapshoting implements Runnable {
 	 * @param store - banco de dados a ser salvo.
 	 * @throws FileNotFoundException - caso o arquivo de saída não possa ser aberto.
 	 */
-	public SimpleSnapshoting(int sleepM, String file, IStorage store) throws FileNotFoundException {
-		this(sleepM, new File((new Date()) + " - " + file), store);
-	} // end of the constructor
-
-	/**
-	 * Cria um novo {@code SimpleSnapshoting} que salva {@code store}
-	 * no arquivo {@code file}.
-	 * 
-	 * @param file - arquivo de <i>output</i>.
-	 * @param store - banco de dados a ser salvo.
-	 * @throws FileNotFoundException - caso o arquivo de saída não possa ser aberto.
-	 */
-	private SimpleSnapshoting(int sleepM, File file, IStorage store) throws FileNotFoundException {
-		this(sleepM, new PrintWriter(file), store);
-	} // end of the constructor
-
-	/**
-	 * Cria um novo {@code SimpleSnapshoting} que salva {@code store}
-	 * no arquivo {@code file}.
-	 * 
-	 * @param out - "escritor" de arquivo.
-	 * @param store - banco de dados a ser salvo.
-	 */
-	private SimpleSnapshoting(int sleepM, Writer out, IStorage store) {
+	public SimpleSnapshoting(int sleepM, String path, IStorage store) throws FileNotFoundException {
 		this.sleepM = sleepM;
-		this.out = out;
-		this.store = store;
+		this.store  = store;
+		this.file   = path;
 	} // end of the constructor
 
 	@Override
 	public void run() {
 		try {
-			Thread.sleep( sleepM * MINUTE_TO_MILLI );
-			// TODO
-			
-			for(String key : store.keySet()) {
+			while( !stop ) {
+				Thread.sleep( sleepM * MINUTE_TO_MILLI );
+				File file = new File( this.file + " AT " + new Date() );
+				PrintWriter out = new PrintWriter(file);
 				
+				for(String key : store.keySet()) {
+					out.println(key + " :: " + store.get(key));
+				} // end of the method
+				
+				out.close();
 			} // end of the method
+			
 		} catch (InterruptedException e) {
 			System.err.println("interrut expection");
+		} catch (FileNotFoundException e) {
+			System.err.println("Fail to take snapshot (" + new Date() + ")");
 		}
+	} // end of the method
+
+	public void stopNow() {
+		stop = true;
 	} // end of the method
 
 } // end of the class

@@ -64,7 +64,7 @@ public class Configuration {
 		
 		while( (line = reader.readLine()) != null ) {
 			// # é utilizado para indicar comentário
-			if( !line.startsWith("#") ) {
+			if( !line.startsWith("#") && line.length() > 1 ) {
 				args = line.split(" = ");
 				conf.put(args[KEY].trim(), args[VALUE].trim());
 			}
@@ -78,6 +78,17 @@ public class Configuration {
 	 */
 	public String get(String key) {
 		return conf.get( key );
+	} // end of the method
+
+	@Override
+	public String toString() {
+		StringBuffer string = new StringBuffer();
+		
+		for(String key : conf.keySet()) {
+			string.append(key + ": " + conf.get(key) + "\n");
+		}
+		
+		return string.toString();
 	} // end of the method
 
 } // end of the class
