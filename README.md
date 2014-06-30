@@ -7,3 +7,6 @@ Alunos:
 	- João Lucas Nunes (Autor)
 
 	- Williamson Goulart Mendes de Lima (Colaborador)
+	
+	- Lucas Lins de Lima (Colaborador) 
+	
